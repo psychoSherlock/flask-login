@@ -8,12 +8,17 @@ def index():
     return render_template('login.html')
 
 
+@app.route('/signup')
+def signup():
+    return render_template('signup.html')
+
+
 @app.route('/api/auth/login', methods=['POST'])
 def login():
     data = request.form
     username = data.get('username')
     password = data.get('password')
-    pass
+    return f"{username}  {password}"
 
 
 if __name__ == '__main__':
