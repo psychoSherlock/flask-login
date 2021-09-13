@@ -18,7 +18,7 @@
         <form action="/api/auth/signup" method="post" id="signup-form">
 
             <div class="txt_field">
-                <input type="text" name="full-name" id="name" required>
+                <input type="text" name="name" id="name" required>
                 <span></span>
                 <label for="name">Full Name</label>
             </div>
@@ -36,7 +36,7 @@
             </div>
 
             <div class="txt_field">
-                <input id="re-password" required type="password">
+                <input id="re-password" required type="password" oninput="checkPassword()">
                 <span></span>
                 <label for="re-password">Re-type your password</label>
             </div>
@@ -52,7 +52,22 @@
         </form>
     </div>
 
+    
 </body>
 
+<script>
+    function checkPassword() {
+  var prev = document.getElementById('password').value;
+    var rePass = document.getElementById('re-password').value;
+    if (prev !== rePass) {
+    document.getElementById('re-password').style.color  = 'red'
+   
+  }
+  else {
+      document.getElementById('re-password').style.color  = 'black'
+      
+  }
+}
+</script>
 
 </html>
