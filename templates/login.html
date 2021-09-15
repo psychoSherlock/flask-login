@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for("static",filename="styles.css") }}">
+    <link rel="stylesheet" href="{{ url_for("static",filename="signIn.css") }}">
     <title>Login</title>
 </head>
 <body>
-    
+
     <div class="center">
         <h1>Login</h1>
         <form action="/api/auth/login" method="post">
@@ -27,10 +27,26 @@
             
             <input type="submit" value="Login">
             
+            {% with messages = get_flashed_messages(with_categories=true) %}
 
+            {% if messages %}
+
+            {% for category, message in messages %}
+            <div class="alert-messages alert-{{ category }}">
+                <span class="message">
+                   {{ message}}
+                </span>
+            </div>
+            {% endfor %}
+            
+                    
+            {% endif %}
+            
+
+        {% endwith %}
             
             <div class="signup_link">
-                Not a member <a href="/signup">Signup</a>
+                Not a member? <a href="/signup">Signup</a>
             </div>
 
         </form>

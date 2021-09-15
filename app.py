@@ -1,9 +1,13 @@
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, flash, url_for
 from flask_sqlalchemy import SQLAlchemy
+from forms import Register, Login
 
 
 app = Flask(__name__)
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///users.db"
+app.config["SECRET_KEY"] = "changethisfuckingstring"  # Change this
+
+
 db = SQLAlchemy(app)
 
 
@@ -23,9 +27,17 @@ def loginPage():
     return render_template('login.html')
 
 
-@app.route('/signup')
+@app.route('/signup', methods=['GET', 'POST'])
 def signupPage():
-    return render_template('signup.html')
+    form = Register()
+    username = form.username.data
+
+    if form.validate_on_submit():
+        print(form.password.errors)
+        flash(f"New account for {username} created successfully !", 'success')
+        return redirect(url_for('loginPage'))
+
+    return render_template('signup.html', form=form)
 
 
 @app.route('/api/auth/login', methods=['POST'])
@@ -44,24 +56,24 @@ def loginApi():
         return 'Not Found'
 
 
-@app.route('/api/auth/signup', methods=['POST'])
-def signupApi():
-    data = request.form
-    username = data.get('username')
-    password = data.get('password')
-    name = data.get('name')
+# @app.route('/api/auth/signup', methods=['POST'])
+# def signupApi():
+#     data = request.form
+#     username = data.get('username')
+#     password = data.get('password')
+#     name = data.get('name')
 
-    exist = User.query.filter(User.username.in_([username])).first()
+#     exist = User.query.filter(User.username.in_([username])).first()
 
-    if exist != None:
-        return "USER EXISTS"
-    else:
+#     if exist != None:
+#         return "USER EXISTS"
+#     else:
 
-        newUser = User(username=username, password=password, name=name)
-        db.session.add(newUser)
-        db.session.commit()
-        return redirect('/')
+        # newUser = User(username=username, password=password, name=name)
+        # db.session.add(newUser)
+        # db.session.commit()
+        # return redirect('/')
 
 
 if __name__ == '__main__':
-    app.run(host='127.0.0.1', port=5500, debug=True)
+    app.run(host='0.0.0.0', port=5500, debug=True)

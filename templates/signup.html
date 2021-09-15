@@ -23,20 +23,39 @@
         <form action="{{ url_for("signupPage") }}" method="post" id="signup-form">
             {{ form.hidden_tag() }}
 
-            <div class="txt_field">
-                {{ form.name(id="name") }}
-                <span></span>
-                {{ form.name.label }}
-            </div>
-
-                
-                {% if form.username.errors %}
-                    {% for error in form.username.errors %}
+            
+            {% if form.name.errors %}
+                    {% for error in form.name.errors %}
                     <div class="txt_field">
-                            {{ form.username(id="username") }}
+                            {{ form.name(id="name") }}
                             <span></span>
-                            {{ form.username.label }}
+                            {{ form.name.label }}
                         </div>
+                        <div class="error">
+                            <span class="material-icons">error</span>
+                            <span class="err-msg">{{ error }}</span>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                
+                <div class="txt_field">
+                    {{ form.name(id="name") }}
+                    <span></span>
+                    {{ form.name.label }}
+                </div>
+                {% endif %}
+
+            
+            
+            
+            
+            {% if form.username.errors %}
+                <div class="txt_field">
+                    {{ form.username(id="username") }}
+                    <span></span>
+                    {{ form.username.label }}
+                </div>
+                    {% for error in form.username.errors %}
                         <div class="error">
                             <span class="material-icons">error</span>
                             <span class="err-msg">{{ error }}</span>
@@ -52,18 +71,60 @@
 
 
 
-            <div class="txt_field">
-                {{ form.password(id="password", type="password") }}
-                <span></span>
-                {{ form.password.label }}
-            </div>
 
-            <div class="txt_field">
-                {{ form.confirmPassword(id="confirmPassword", type="password", oninput="checkPassword()")}}
-                <span></span>
-                {{ form.confirmPassword.label }}
-            </div>
-            
+
+
+
+
+
+
+            {% if form.password.errors %}
+                    {% for error in form.password.errors %}
+                    <div class="txt_field">
+                            {{ form.password(id="passwor",  type="password") }}
+                            <span></span>
+                            {{ form.password.label }}
+                        </div>
+                        <div class="error">
+                            <span class="material-icons">error</span>
+                            <span class="err-msg">{{ error }}</span>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                
+                <div class="txt_field">
+                    {{ form.password(id="password", type="password") }}
+                    <span></span>
+                    {{ form.password.label }}
+                </div>
+                {% endif %}
+
+
+
+
+
+            {% if form.confirmPassword.errors %}
+                    {% for error in form.confirmPassword.errors %}
+                    <div class="txt_field">
+                        {{ form.confirmPassword(id="confirmPassword", type="password", oninput="checkPassword()")}}
+                            <span></span>
+                            {{ form.confirmPassword.label }}
+                        </div>
+                        <div class="error">
+                            <span class="material-icons">error</span>
+                            <span class="err-msg">{{ error }}</span>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                
+                <div class="txt_field">
+                    {{ form.confirmPassword(id="confirmPassword", type="password", oninput="checkPassword()")}}
+                    <span></span>
+                    {{ form.confirmPassword.label }}
+                </div>
+                {% endif %}
+
+
             {{ form.submit }}
             
 
@@ -77,6 +138,8 @@
 
     
 </body>
+
+<script src="{{ url_for("static", filename='loginValidators.js') }}"></script>
 
 <script>
     function checkPassword() {
