@@ -7,7 +7,12 @@
 
     <title>SignUp</title>
 
-    <link rel="stylesheet" href="{{ url_for("static",filename="styles.css") }}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+
+    <link rel="stylesheet" href="{{ url_for("static",filename="signIn.css") }}">
 
 
 </head>
@@ -15,38 +20,56 @@
     
     <div class="center">
         <h1>SignUp</h1>
-        <form action="/api/auth/signup" method="post" id="signup-form">
+        <form action="{{ url_for("signupPage") }}" method="post" id="signup-form">
+            {{ form.hidden_tag() }}
 
             <div class="txt_field">
-                <input type="text" name="name" id="name" required>
+                {{ form.name(id="name") }}
                 <span></span>
-                <label for="name">Full Name</label>
+                {{ form.name.label }}
+            </div>
+
+                
+                {% if form.username.errors %}
+                    {% for error in form.username.errors %}
+                    <div class="txt_field">
+                            {{ form.username(id="username") }}
+                            <span></span>
+                            {{ form.username.label }}
+                        </div>
+                        <div class="error">
+                            <span class="material-icons">error</span>
+                            <span class="err-msg">{{ error }}</span>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                <div class="txt_field">
+                    {{ form.username(id="username") }}
+                    <span></span>
+                    {{ form.username.label }}
+                </div>
+                {% endif %}
+
+
+
+            <div class="txt_field">
+                {{ form.password(id="password", type="password") }}
+                <span></span>
+                {{ form.password.label }}
             </div>
 
             <div class="txt_field">
-                <input type="text" name="username" id="username" required>
+                {{ form.confirmPassword(id="confirmPassword", type="password", oninput="checkPassword()")}}
                 <span></span>
-                <label for="username">Username</label>
-            </div>
-
-            <div class="txt_field">
-                <input type="password" name="password" id="password" required>
-                <span></span>
-                <label for="password">Password</label>
-            </div>
-
-            <div class="txt_field">
-                <input id="re-password" required type="password" oninput="checkPassword()">
-                <span></span>
-                <label for="re-password">Re-type your password</label>
+                {{ form.confirmPassword.label }}
             </div>
             
-            <input type="submit" value="Sign Up">
+            {{ form.submit }}
             
 
             
             <div class="signup_link">
-                Already a member? <a href="/">Login</a>
+                Already a member? <a href="{{ url_for("loginPage") }}">Login</a>
             </div>
 
         </form>
@@ -58,13 +81,13 @@
 <script>
     function checkPassword() {
   var prev = document.getElementById('password').value;
-    var rePass = document.getElementById('re-password').value;
+    var rePass = document.getElementById('confirmPassword').value;
     if (prev !== rePass) {
-    document.getElementById('re-password').style.color  = 'red'
+    document.getElementById('confirmPassword').style.color  = 'red'
    
   }
   else {
-      document.getElementById('re-password').style.color  = 'black'
+      document.getElementById('confirmPassword').style.color  = 'black'
       
   }
 }
