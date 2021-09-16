@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for("static",filename="signIn.css") }}">
+    <title>Login</title>
+</head>
+<body>
+
+    <div class="center">
+        <h1>Login</h1>
+        <form action="{{ url_for("loginPage") }}" method="post" id="login-form">
+            {{ form.hidden_tag() }}
+            
+            {% if form.username.errors %}
+                <div class="txt_field">
+                    {{ form.username(id="username") }}
+                    <span></span>
+                    {{ form.username.label }}
+                </div>
+                    {% for error in form.username.errors %}
+                        <div class="error">
+                            <span class="material-icons">error</span>
+                            <span class="err-msg">{{ error }}</span>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                <div class="txt_field">
+                    {{ form.username(id="username") }}
+                    <span></span>
+                    {{ form.username.label }}
+                </div>
+                {% endif %}
+
+
+            {% if form.password.errors %}
+                    {% for error in form.password.errors %}
+                    <div class="txt_field">
+                            {{ form.password(id="passwor",  type="password") }}
+                            <span></span>
+                            {{ form.password.label }}
+                        </div>
+                        <div class="error">
+                            <span class="material-icons">error</span>
+                            <span class="err-msg">{{ error }}</span>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                <div class="txt_field">
+                    {{ form.password(id="password", type="password") }}
+                    <span></span>
+                    {{ form.password.label }}
+                </div>
+                {% endif %}
+
+
+            <div class="pass">Forget Password?</div>
+            
+            {{ form.submit }}
+            
+            {% with messages = get_flashed_messages(with_categories=true) %}
+
+            {% if messages %}
+
+            {% for category, message in messages %}
+            <div class="alert-messages alert-{{ category }}">
+                <span class="message">
+                   {{ message}}
+                </span>
+            </div>
+            {% endfor %}
+            
+                    
+            {% endif %}
+            
+
+        {% endwith %}
+            
+            <div class="signup_link">
+                Not a member? <a href="{{ url_for("signupPage") }}">Signup</a>
+            </div>
+
+        </form>
+    </div>
+
+</body>
+</html>
