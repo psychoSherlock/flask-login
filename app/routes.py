@@ -1,4 +1,4 @@
-from re import U
+from flask_login import login_user, current_user, logout_user, login_required
 from app.models import User
 from flask import render_template, request, redirect, flash, url_for
 from app.forms import Register, Login
@@ -7,14 +7,19 @@ from app import app, db, bcrypt
 
 @app.route('/', methods=['GET', 'POST'])
 def loginPage():
+    if current_user.is_authenticated:
+        return redirect(url_for('userProfile'))
     form = Login()
 
-    if form.validate_on_submit():
-        if form.username.data == 'admin' and form.password.data == 'password':
+    if form.validate_on_submit():  # on submit
+        # check if username exist
+        user = User.query.filter_by(username=form.username.data).first()
 
-            # Returns a flashed message
-            flash('Logged in successfully', 'success')
-            return redirect(url_for('/profile'))
+        # check if username and password matches
+        if user and bcrypt.check_password_hash(user.password, form.password.data):
+            login_user(user, remember=False)  # then log in
+            return redirect(url_for('userProfile'))  # redirect to profile page
+
         else:
             flash('Incorrect Username or Password', 'danger')
     return render_template('login.html', form=form)
@@ -22,6 +27,8 @@ def loginPage():
 
 @app.route('/signup', methods=['GET', 'POST'])
 def signupPage():
+    if current_user.is_authenticated:
+        return redirect(url_for('userProfile'))
     form = Register()
     username = form.username.data
 
@@ -46,36 +53,15 @@ def signupPage():
     return render_template('signup.html', form=form)
 
 
-@app.route('/api/auth/login', methods=['POST'])
-def loginApi():
-    data = request.form
-
-    username = data.get('username')
-    password = data.get('password')
-
-    user = User.query.filter(User.username.in_(
-        [username]), User.password.in_([password])).first()
-
-    if user:
-        return user.name
-    else:
-        return 'Not Found'
+@app.route('/logout')
+def logOut():
+    logout_user()
+    flash('Logged out!', 'success')
+    return redirect(url_for('loginPage'))
 
 
-# @app.route('/api/auth/signup', methods=['POST'])
-# def signupApi():
-#     data = request.form
-#     username = data.get('username')
-#     password = data.get('password')
-#     name = data.get('name')
-
-#     exist = User.query.filter(User.username.in_([username])).first()
-
-#     if exist != None:
-#         return "USER EXISTS"
-#     else:
-
-        # newUser = User(username=username, password=password, name=name)
-        # db.session.add(newUser)
-        # db.session.commit()
-        # return redirect('/')
+@app.route('/profile')
+@login_required
+def userProfile():
+    avatar_pic = f"https://avatars.dicebear.com/api/micah/{current_user.name}.svg"
+    return render_template('profile.html', avatar_pic=avatar_pic)

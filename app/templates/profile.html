@@ -1,0 +1,26 @@
+{% extends 'navbar.html' %}
+
+{% block css %} <link rel="stylesheet" href="{{ url_for("static", filename="profile.css") }}"> {% endblock %}
+
+
+{% block title %}Profile: {{ current_user.name }}{% endblock %}
+
+
+{% block content %}
+
+
+<div class="profile-content">
+    <div class="profile-info">
+        <img id="profile-pic" src="{{ avatar_pic }}" alt="Avatar">
+        <h1 class="display-name">{{ current_user.name }}</h1>
+
+        <span class="display-username">@{{ current_user.username }}</span>
+    </div>
+
+    <div class="profile-about">
+
+    </div>
+</div>
+
+
+{% endblock %}

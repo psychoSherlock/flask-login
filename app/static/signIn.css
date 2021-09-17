@@ -141,7 +141,7 @@ input:invalid {
 .alert-messages {
   font-family: "Roboto Condensed", sans-serif;
   padding: 0.5em;
-
+  text-align: center;
   display: block;
   margin: auto;
   margin-top: 1em;
@@ -167,6 +167,7 @@ input:invalid {
 .error .material-icons {
   color: #ffc107;
   font-size: 0.8em;
+  vertical-align: middle;
 }
 .error {
   margin: -0.8em 0;

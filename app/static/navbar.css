@@ -1,0 +1,69 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Titillium+Web&family=Ubuntu&display=swap");
+
+:root {
+  --font-default-login: "Montserrat", sans-serif;
+  --font-roboto: "Roboto Condensed", sans-serif;
+  --ubuntu: "Ubuntu", sans-serif;
+  --font-two: "Titillium Web", sans-serif;
+}
+
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+a,
+button {
+  outline: none;
+}
+
+nav {
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px,
+    rgba(0, 0, 0, 0.22) 0px 10px 10px;
+  width: 100%;
+  height: 3em;
+  background: linear-gradient(120deg, #2d3142, #242423);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+ul {
+  margin: 0;
+}
+
+ul li,
+ul li a {
+  list-style-type: none;
+  text-decoration: none;
+  font-family: var(--font-roboto);
+  color: white;
+}
+
+li a {
+  line-height: 0;
+}
+
+ul li * {
+  vertical-align: middle;
+}
+
+ul:last-child {
+  margin-right: 1em;
+}
+
+.nav-icon a {
+  font-weight: bolder;
+  transition: 0.3s;
+}
+
+.nav-icon a:hover,
+.nav-icon a:active {
+  color: #ee4266;
+}
