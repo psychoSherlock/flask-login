@@ -1,21 +1,19 @@
 body {
   margin: 0;
   padding: 0;
-  background: linear-gradient(120deg, #2980b9, #8e44ad);
-  height: 100vh;
 }
 
-.profile-info {
+.profile-content {
   margin: auto;
   width: 60%;
-  border: 5px solid #242423;
+  border: 5px solid #2b2d42;
   padding: 1em;
-  margin-top: 1em;
-  text-align: center;
-  background-color: white;
   box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px,
     rgba(0, 0, 0, 0.22) 0px 15px 12px;
+
   border-radius: 1em;
+  background: snow;
+  margin-top: 6em;
 }
 
 .display-name {
@@ -28,10 +26,55 @@ body {
 
 #profile-pic {
   border-radius: 50%;
-  border: 2px solid #2d3142;
+  border: 3px ridge #e71d36;
   max-height: 11em;
+  max-width: 20%;
+  background-color: #f0ed27e8;
+  animation: growPic 1.3s ease-in-out;
+}
+
+@keyframes growPic {
+  0% {
+    transform: scale(0);
+    opacity: 1.7;
+  }
+  100% {
+    transform: initial;
+    opacity: 1;
+  }
+}
+
+.profile-info {
+  /*transform: translateY(-30%);*/
+  text-align: center;
 }
 
 .profile-info .display-username {
   font-size: 1.2em;
+}
+
+#profile-pic:hover {
+  cursor: pointer;
+}
+
+#edit-profile {
+  font-family: var(--ubuntu);
+  position: absolute;
+  right: 1em;
+  transform: translateY(1em);
+}
+
+.user-details {
+  margin: 0 1em;
+  animation: growPic 1.3s ease-out;
+}
+
+.about {
+  font-family: var(--font-roboto);
+  font-size: 1.1em;
+}
+
+.header {
+  font-family: var(--font-bebas);
+  color: var(--color-success);
 }

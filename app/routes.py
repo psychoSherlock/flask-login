@@ -1,7 +1,7 @@
 from flask_login import login_user, current_user, logout_user, login_required
 from app.models import User
 from flask import render_template, request, redirect, flash, url_for
-from app.forms import Register, Login
+from app.forms import Register, Login, UpdateAccount
 from app import app, db, bcrypt
 
 
@@ -63,5 +63,25 @@ def logOut():
 @app.route('/profile')
 @login_required
 def userProfile():
-    avatar_pic = f"https://avatars.dicebear.com/api/micah/{current_user.name}.svg"
-    return render_template('profile.html', avatar_pic=avatar_pic)
+    if current_user.profile_pic == 'profile.png':
+        profile_pic = f"https://avatars.dicebear.com/api/micah/{current_user.name}.svg"
+    else:
+        profile_pic = url_for(
+            'static', filename=f"profiles/{current_user.profile_pic}")
+
+    return render_template('profile.html', avatar_pic=profile_pic)
+
+
+@app.route('/profile/edit',  methods=['GET', 'POST'])
+@login_required
+def editProfile():
+    form = UpdateAccount()
+
+    if form.validate_on_submit():
+        current_user.username = form.username.data
+        current_user.name = form.name.data
+        db.session.commit()
+        flash('Your account has been updated!', 'success')
+        return redirect(url_for('userProfile'))
+
+    return render_template('editProfile.html', form=form)

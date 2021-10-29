@@ -1,0 +1,111 @@
+{% extends 'navbar.html' %} {% block css %} <link rel="stylesheet"
+href="{{url_for("static", filename="editProfile.css") }}"> {% endblock %} {%
+block title %}Edit Profile: {{ current_user.name }}{% endblock %} {% block
+content %} 
+
+
+<div class="edit-container container">
+    <form action="" method="POST">
+      {{ form.hidden_tag() }}
+      <div class="general-edit edit-div">
+  
+        <h3>Genral</h3>
+  
+        <label for="profile_pic">Profile Picture</label>
+        <input type="file" name="profile_pic" id="profile_pic">
+
+        
+  
+        <div class="row justify-content-between">
+  
+          <div class="grouped col-sm-5">
+            
+            <div>
+              {{ form.name.label }}
+              {{ form.name(value=current_user.name) }}
+
+              {% if form.name.errors %}
+                {% for error in form.name.errors %}
+                  <span class="alert-danger">
+                    {{ error }}
+                  </span>
+                {% endfor %}
+                
+              {% endif %}
+              
+            </div>
+  
+            <div>
+              {{ form.username.label }}
+              {{ form.username(value=current_user.username) }}
+
+              {% if form.username.errors %}
+                  {% for error in form.username.errors %}
+                      <span class="alert-danger">{{ error }}</span>
+                  {% endfor %}
+                  
+              {% endif %}
+              
+            </div>
+  
+          </div>
+  
+          <div class="grouped col-sm-7">
+  
+            <div>
+              {{ form.password.label }}
+              {{ form.password }}
+
+              {% if form.password.errors %}
+                  {% for error in form.password.errors %}
+                      <span class="alert-danger">{{ error }}</span>
+                  {% endfor %}
+                  
+              {% endif %}
+              
+
+            </div>
+  
+            <div>
+              {{ form.confirmPassword.label }}
+              {{ form.confirmPassword(oninput="checkPassword()")}}
+
+              {% if form.confirmPassword.errors %}
+                  {% for error in form.confirmPassword.errors %}
+                      <span class="alert-danger">{{ error }}</span>
+                  {% endfor %}
+                  
+              {% endif %}
+ 
+            </div>
+  
+          </div>
+        </div>
+          
+        <div class="edit-div">
+          <h3>About</h3>
+          <textarea name="about" id="about" cols="30" rows="10"></textarea>
+        </div>
+  
+          <div class="social-edit edit-div">
+              <h3>Social Media</h3>
+  
+              <label for="instagram">Instagram</label>
+              <input id="instagram" type="text" placeholder="Instagram link" class="social_media">
+      
+      
+              
+              <label for="facebook">Facebook</label>
+              <input type="text" placeholder="Facebook link" class="social_media form-control" id="facebook">
+      
+      
+              <label for="twitter">Twitter</label>
+              <input type="text" placeholder="Twitter link" class="social_media form-control" id="twitter">
+          </div>
+  
+          {{ form.submit(class="btn btn-warning") }}
+      </form>
+    </div>
+  
+<script src="{{ url_for("static", filename="validate.js") }}"></script>
+{% endblock %}

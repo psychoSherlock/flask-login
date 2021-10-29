@@ -1,0 +1,45 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap");
+
+.edit-container {
+  background-color: #fff;
+  min-width: 50%;
+  max-width: 80%;
+  margin: auto;
+  margin-top: 2em;
+  border: 5px solid #2b2d42;
+  border-radius: 1em;
+  padding: 1em;
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px,
+    rgba(0, 0, 0, 0.22) 0px 15px 12px;
+  margin-bottom: 2em;
+}
+
+.edit-container label,
+.edit-container input {
+  font-family: var(--font-poppins);
+}
+
+.edit-div {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+}
+.edit-div label::after {
+  content: ":";
+}
+.edit-div label {
+  margin-top: 1em;
+}
+
+.edit-container h3 {
+  font-family: var(--font-bebas);
+  text-decoration: underline;
+}
+
+.btn {
+  width: 20%;
+  margin: 2em auto;
+}
+
+/* https://codepen.io/thiagoluiznunes/pen/JxJGLB?editors=1100 */

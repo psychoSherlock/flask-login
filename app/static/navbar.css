@@ -1,12 +1,19 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Titillium+Web&family=Ubuntu&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap");
 
 :root {
   --font-default-login: "Montserrat", sans-serif;
   --font-roboto: "Roboto Condensed", sans-serif;
   --ubuntu: "Ubuntu", sans-serif;
   --font-two: "Titillium Web", sans-serif;
+  --font-poppins: "Poppins", sans-serif;
+  --font-bebas: "Bebas Neue", cursive;
+  --color-danger: #dc3545;
+  --color-success: #28a745;
+  --color-warning: #ffc107;
 }
 
 * {
@@ -16,6 +23,7 @@
 body {
   margin: 0;
   padding: 0;
+  background: #222;
 }
 
 a,
@@ -61,9 +69,42 @@ ul:last-child {
 .nav-icon a {
   font-weight: bolder;
   transition: 0.3s;
+  text-decoration: none;
 }
 
 .nav-icon a:hover,
 .nav-icon a:active {
   color: #ee4266;
+}
+.icon {
+  vertical-align: middle;
+  /*display: inline-flex;*/
+}
+
+.flash-msg {
+  width: max-content;
+  position: absolute;
+
+  right: 1em;
+  bottom: 1em;
+
+  padding: 0.8em;
+  border-radius: 8px;
+  animation: hideNotification 3s 4s ease forwards;
+}
+
+@keyframes hideNotification {
+  0% {
+    visibility: initial;
+    opacity: 1;
+  }
+
+  80% {
+    opacity: 0;
+  }
+
+  100% {
+    visibility: hidden;
+    opacity: 0;
+  }
 }

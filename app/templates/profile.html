@@ -1,26 +1,27 @@
-{% extends 'navbar.html' %}
+{% extends 'navbar.html' %} {% block css %} <link rel="stylesheet" href="{{
+url_for("static", filename="profile.css") }}"> {% endblock %} {% block title
+%}Profile: {{ current_user.name }}{% endblock %} {% block content %}
 
-{% block css %} <link rel="stylesheet" href="{{ url_for("static", filename="profile.css") }}"> {% endblock %}
+<a id="edit-profile" href="{{ url_for("editProfile") }}">
 
+  <button class="btn btn-danger">
+  <span class="fas fa-edit"></span>
+  Edit Profile
+</button>
 
-{% block title %}Profile: {{ current_user.name }}{% endblock %}
-
-
-{% block content %}
-
-
+</a>
 <div class="profile-content">
-    <div class="profile-info">
-        <img id="profile-pic" src="{{ avatar_pic }}" alt="Avatar">
-        <h1 class="display-name">{{ current_user.name }}</h1>
-
-        <span class="display-username">@{{ current_user.username }}</span>
-    </div>
-
-    <div class="profile-about">
-
-    </div>
+  <div class="profile-info">
+    <img id="profile-pic" src="{{ avatar_pic }}" alt="Avatar" />
+    <h1 class="display-name">{{ current_user.name }}</h1>
+    <span class="display-username">@{{ current_user.username }}</span>
+  </div>
+  <div class="user-details">
+	  <h3 class="header">About Me</h3>
+	  <p class="about">
+	  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam malesuada at mauris non sagittis. Phasellus sed mi vitae ex pellentesque vehicula ac nec justo. Proin egestas odio sed erat semper, vitae tempor lectus consequat. Etiam augue lectus, mattis nec facilisis eu, ultrices sit amet neque. Sed iaculis arcu tortor, ut dapibus diam venenatis eget. Nulla iaculis blandit quam non ultrices. Nam hendrerit in erat ut lobortis. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.
+	  </p>
+  </div>
 </div>
-
 
 {% endblock %}
